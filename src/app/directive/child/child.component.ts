@@ -10,8 +10,8 @@ export class ChildComponent implements OnInit {
   dataChange: boolean;
 
   @Input() childData: string;
-  @Output() changeStatusParent = new EventEmitter<boolean>();
   @Input() clickEvent: boolean;
+  @Output() changeStatusParent = new EventEmitter<boolean>();
 
   constructor() {
   }
