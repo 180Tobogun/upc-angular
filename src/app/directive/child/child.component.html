@@ -1,1 +1,17 @@
-<p>child works!</p>
+<div class="container">
+  <h3>Child Buttons</h3>
+  <div class="inside">
+    <button mat-raised-button color="primary">Main</button>
+    <button mat-raised-button color="accent" (click)="sendMessageToParent()">Send</button>
+  </div>
+
+  <div class="text-container">
+    {{message}}
+  </div>
+
+  <div class="input-field">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="write text">
+    </mat-form-field>
+  </div>
+</div>

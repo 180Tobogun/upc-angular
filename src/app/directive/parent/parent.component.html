@@ -1,3 +1,25 @@
-<p>parent works!</p>
+<h3>Parent Buttons</h3>
+<div class="container">
+  <div class="inside">
+    <button mat-raised-button color="primary"
+            (mouseenter)="mouseEnter('GOOD')"
+            (mouseleave)="mouseLeave(' ')" (click)="clickBtn()">
+      Main
+    </button>
+    <button mat-raised-button color="accent">Two</button>
+  </div>
+  <div class="input-field">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="write text">
+    </mat-form-field>
+  </div>
+</div>
 
-<app-child></app-child>
+<hr>
+<h3>from child to parent send message</h3>
+{{outputParentMesage}}
+<app-child (messageEvent)="receiveMessage($event)"></app-child>
+
+
+<hr>
+<app-child [message]="parentMessage"></app-child>
