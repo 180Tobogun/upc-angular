@@ -1,17 +1,20 @@
 <div class="container">
   <h3>Child Buttons</h3>
   <div class="inside">
-    <button mat-raised-button color="primary">Main</button>
-    <button mat-raised-button color="accent" (click)="sendMessageToParent()">Send</button>
-  </div>
-
-  <div class="text-container">
-    {{message}}
+    <button mat-raised-button color="primary"
+            [disabled]="clickEvent"
+            (mouseenter)="dataChange = true"
+            (mouseleave)="dataChange = false"
+            (click)="statusChangeEvent()">
+      Child btn for parent
+    </button>
   </div>
 
   <div class="input-field">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="write text">
-    </mat-form-field>
+    <div>
+      <span *ngIf="!dataChange">{{childData}}</span>
+      <span *ngIf="dataChange">{{childData}} + GOOD</span>
+    </div>
   </div>
+
 </div>

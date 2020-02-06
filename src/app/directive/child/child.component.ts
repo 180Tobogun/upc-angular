@@ -7,19 +7,22 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ChildComponent implements OnInit {
 
-  @Input() message: string;
+  dataChange: boolean;
 
-  messageToParentFromChild = 'Send to parent component';
-
-  @Output() public messageEvent = new EventEmitter<string>();
+  @Input() childData: string;
+  @Output() changeStatusParent = new EventEmitter<boolean>();
+  @Input() clickEvent: boolean;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.childData = 'Child Data';
+    this.dataChange = false;
+    this.clickEvent = true;
   }
 
-  sendMessageToParent() {
-    this.messageEvent.emit(this.messageToParentFromChild);
+  statusChangeEvent() {
+    this.changeStatusParent.emit(true);
   }
 }
