@@ -26,11 +26,11 @@ export class ParentComponent implements OnInit {
     this.statusBtn = !this.statusBtn;
   }
 
-  statusChangeEvent(event) {
-    if (this.parentBtn === event) {
-      this.parentBtn = !event;
+  statusChangeEvent($event) {
+    if (this.parentBtn === $event) {
+      this.parentBtn = !$event;
     } else {
-      this.parentBtn = event;
+      this.parentBtn = $event;
     }
   }
 }
