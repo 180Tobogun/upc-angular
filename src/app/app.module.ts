@@ -7,6 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {MaterialModule} from './material.module';
 import {DirectiveModule} from './directive/directive.module';
 import {FormsModule} from '@angular/forms';
+import {CarShopModule} from './car-shop/car-shop.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {FormsModule} from '@angular/forms';
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    CarShopModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,22 @@
+<table border=2 *ngIf="cars.length>0">
+  <tr *ngFor="let car of cars; index as i">
+    <td>{{car.id}}</td>
+    <td>{{car.model}}</td>
+    <td>{{car.price}}</td>
+    <td>{{car.colour}}</td>
+    <button mat-raised-button color="primary" (click)="setCarToShop(car, '1', i)">shop 1</button>
+    <button mat-raised-button color="accent" (click)="setCarToShop(car, '2', i)">shop 2</button>
+  </tr>
+</table>
+<table border=2 *ngIf="cars.length !=0; else nice">
+  <tr>
+    <td>
+      <app-car-a></app-car-a>
+    </td>
+    <td>
+      <app-car-b></app-car-b>
+    </td>
+  </tr>
+</table>
+
+<ng-template #nice>I am a cool angular developer!! GG</ng-template>
