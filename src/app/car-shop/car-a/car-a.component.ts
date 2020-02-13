@@ -7,19 +7,7 @@ import {CarModel} from '../model/car.model';
   templateUrl: './car-a.component.html',
   styleUrls: ['./car-a.component.css']
 })
-export class CarAComponent implements OnInit {
-
-  cars: CarModel[] = [];
-  sumAllData: number;
-
-  constructor(private service: CarService) {
-  }
-
-  ngOnInit() {
-    this.getCar();
-  }
-
-  getCar() {
-    this.cars = this.service.getDataToShop(1);
+export class CarAComponent {
+  constructor(public service: CarService) {
   }
 }

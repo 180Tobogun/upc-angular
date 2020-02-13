@@ -1,12 +1,7 @@
-<table border=1 *ngIf="car.length>0">
-  <tr *ngFor="let car of cars; Index as i">
+<table border="1">
+  <tr *ngFor="let car of (cars$ | async)">
     <td>{{car.model}}</td>
     <td [ngStyle]="{'background-color': car.color}">{{car.color}}</td>
     <td>{{car.amount}}</td>
   </tr>
-  <!--<tr>-->
-    <!--<td></td>-->
-    <!--<td>total count : </td>-->
-    <!--<td>{{getTotalCount()}}</td>-->
-  <!--</tr>-->
 </table>

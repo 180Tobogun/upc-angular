@@ -10,20 +10,7 @@ import {SHOPS} from '../model/shopData';
   styleUrls: ['./car-shop.component.css']
 })
 
-export class CarShopComponent implements OnInit {
-
-  cars = CARS;
-  shops = SHOPS;
-
-  constructor(private service: CarService) {
+export class CarShopComponent {
+  constructor(public service: CarService) {
   }
-
-  ngOnInit() {
-  }
-
-  setCarToShop(car: CarModel, shop, row) {
-    this.service.setCarToShop(shop);
-    this.cars.splice(row, 1);
-  }
-
 }

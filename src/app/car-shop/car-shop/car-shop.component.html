@@ -1,22 +1,28 @@
-<table border=2 *ngIf="cars.length>0">
-  <tr *ngFor="let car of cars; index as i">
+<table border=2>
+  <tr *ngFor="let car of (service.cars$ | async)">
     <td>{{car.id}}</td>
     <td>{{car.model}}</td>
     <td>{{car.price}}</td>
     <td>{{car.colour}}</td>
-    <button mat-raised-button color="primary" (click)="setCarToShop(car, '1', i)">shop 1</button>
-    <button mat-raised-button color="accent" (click)="setCarToShop(car, '2', i)">shop 2</button>
+    <button
+      *ngFor="let shop of (service.shops$ | async)"
+      mat-raised-button
+      color="primary" 
+      (click)="service.addCarToShop(car, shop)">
+      {{shop.address}}
+    </button>
   </tr>
 </table>
-<table border=2 *ngIf="cars.length !=0; else nice">
-  <tr>
-    <td>
-      <app-car-a></app-car-a>
-    </td>
-    <td>
-      <app-car-b></app-car-b>
-    </td>
+<br>
+<table border=2>
+  <tr *ngFor="let shop of (service.shops$ | async)">
+    <td>{{shop.address}}</td>
+    <button
+      *ngFor="let car of shop.cars;"
+      mat-raised-button
+      color="primary" 
+      (click)="service.removeCarFromShop(car, shop)">
+      {{car.model}}
+    </button>
   </tr>
 </table>
-
-<ng-template #nice>I am a cool angular developer!! GG</ng-template>
