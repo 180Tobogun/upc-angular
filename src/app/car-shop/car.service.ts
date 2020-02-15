@@ -56,6 +56,7 @@ export class CarService {
   constructor() {
   }
 
+  // closure
   public getAllowedShops(currentShop: CarShopModel): Observable<CarShopModel[]> {
     return this.shops$.pipe(
       map(shops => shops.filter(s => s.id !== currentShop.id))
