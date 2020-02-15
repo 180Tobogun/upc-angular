@@ -7,8 +7,8 @@
     <button
       *ngFor="let shop of (service.shops$ | async)"
       mat-raised-button
-      color="primary" 
-      (click)="service.addCarToShop(car, shop)">
+      color="primary"
+      (click)="service.addCarToShopFromStash(car, shop)">
       {{shop.address}}
     </button>
   </tr>
@@ -17,12 +17,35 @@
 <table border=2>
   <tr *ngFor="let shop of (service.shops$ | async)">
     <td>{{shop.address}}</td>
-    <button
-      *ngFor="let car of shop.cars;"
-      mat-raised-button
-      color="primary" 
-      (click)="service.removeCarFromShop(car, shop)">
-      {{car.model}}
-    </button>
+    <td *ngFor="let car of shop.cars;">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="service.moveCarFromShopToStash(car, shop)">
+        {{car.model}}
+      </button>
+      <button
+        *ngFor="let allowedShop of (service.getAllowedShops(shop) | async);"
+        mat-raised-button
+        color="primary"
+        (click)="service.moveCarFromShopToShop(shop, allowedShop, car)">
+        Move to {{allowedShop.address}}
+      </button>
+    </td>
+  </tr>
+</table>
+
+
+<table border=2>
+  <tr *ngFor="let history of (service.history$ | async)">
+    <td>
+      {{history.from}}
+    </td>
+    <td>
+      {{history.to}}
+    </td>
+    <td>
+      {{history.date}}
+    </td>
   </tr>
 </table>
