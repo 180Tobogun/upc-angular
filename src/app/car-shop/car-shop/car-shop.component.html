@@ -6,6 +6,7 @@
     <td>{{car.colour}}</td>
     <button
       *ngFor="let shop of (service.shops$ | async)"
+      [disabled]="!(service.validateShop$(shop, car) | async)"
       mat-raised-button
       color="primary"
       (click)="service.addCarToShopFromStash(car, shop)">
@@ -26,6 +27,7 @@
       </button>
       <button
         *ngFor="let allowedShop of (service.getAllowedShops(shop) | async);"
+        [disabled]="!(service.validateShop$(allowedShop, car) | async)"
         mat-raised-button
         color="primary"
         (click)="service.moveCarFromShopToShop(shop, allowedShop, car)">

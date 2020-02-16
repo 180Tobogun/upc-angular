@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CarModel} from './model/car.model';
 import {CarShopModel} from './model/car-shop.model';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {SHOPS} from './model/shopData';
 import {CARS} from './model/carData';
 import {HistoryModel} from './model/history.model';
@@ -63,7 +63,14 @@ export class CarService {
     );
   }
 
+  public validateShop$(currentShop: CarShopModel, car: CarModel): Observable<boolean> {
+    return of(this.validateShop(currentShop, car));
+  }
+
   public moveCarFromShopToShop(fromShop: CarShopModel, toShop: CarShopModel, car: CarModel) {
+    if (!this.validateShop(toShop, car)) {
+      return;
+    }
     this.removeCarFromShop(car, fromShop);
     this.addCarToShop(car, toShop);
     this.addItemToHistory(fromShop.address, toShop.address);
@@ -71,7 +78,12 @@ export class CarService {
 
 
   private addItemToHistory(from: string, to: string): void {
-    this.history = [...this.history, {from, to, date: this.getCurrentDate()}];
+    const result = [...this.history, {from, to, date: this.getCurrentDate()}];
+    const maxHistoryLength = 5;
+    if (result.length > maxHistoryLength) {
+      result.shift();
+    }
+    this.history = result;
   }
 
   private getCurrentDate() {
@@ -95,7 +107,21 @@ export class CarService {
     });
   }
 
+  private calculateSumOfCarsInShop(shop: CarShopModel): number {
+     return shop.cars.reduce((sum, car) => sum + car.price, 0);
+  }
+
+  private validateShop(shop: CarShopModel, car: CarModel): boolean {
+    const maxCars = 2;
+    const maxPrice = 1000;
+    const incrementedPrice = this.calculateSumOfCarsInShop(shop) + car.price;
+    return shop.cars.length < maxCars && incrementedPrice < maxPrice;
+  }
+
   public addCarToShopFromStash(car: CarModel, shop: CarShopModel): void {
+    if (!this.validateShop(shop, car)) {
+      return;
+    }
     this.addCarToShop(car, shop);
     this.removeCarFromList(car);
     this.addItemToHistory(this.stashTable, shop.address);
